@@ -1,5 +1,5 @@
 $date
-	Wed Nov 10 11:45:56 2021
+	Wed Nov 10 18:23:04 2021
 $end
 $version
 	Icarus Verilog
@@ -19,13 +19,14 @@ $var reg 1 ( sel $end
 $scope module dut $end
 $var wire 1 & clock $end
 $var wire 64 ) coord_in [63:0] $end
-$var wire 2 * fetch_next_wire [1:0] $end
 $var wire 1 ' reset $end
 $var wire 1 ( selected $end
-$var wire 32 + coord_wire [31:0] $end
+$var wire 3 * fetch_wires [2:0] $end
+$var wire 96 + coord_wires [95:0] $end
 $var reg 32 , coord [31:0] $end
 $var reg 2 - fetch_next [1:0] $end
-$scope module dut $end
+$scope begin genblk1[0] $end
+$scope module merger_tree_node $end
 $var wire 1 & clock $end
 $var wire 64 . coord_in [63:0] $end
 $var wire 2 / fetch_next [1:0] $end
@@ -40,6 +41,7 @@ $var wire 1 6 comparison $end
 $upscope $end
 $upscope $end
 $upscope $end
+$upscope $end
 $enddefinitions $end
 #0
 $dumpvars
@@ -47,15 +49,15 @@ $dumpvars
 b10 5
 b11 4
 b10 3
-z2
-x1
+12
+11
 00
 bz /
 b1000000000000000000000000000000011 .
 bx -
 bx ,
-b10 +
-bz *
+b100000000000000000000000000000001100000000000000000000000000000010 +
+bz1 *
 b1000000000000000000000000000000011 )
 1(
 0'
@@ -110,7 +112,10 @@ b10 ,
 #95000
 1&
 #100000
+01
+02
 0&
+bz0 *
 0(
 #105000
 1&
@@ -151,16 +156,19 @@ b10 ,
 #195000
 1&
 #200000
-01
-x0
+10
 16
-b11 3
 b10 4
+b11 3
+01
+b1100000000000000000000000000000010 .
+12
 0&
 b11 %
+b110000000000000000000000000000001000000000000000000000000000000010 +
 b1100000000000000000000000000000010 )
-b1100000000000000000000000000000010 .
 b10 $
+bz1 *
 1(
 #205000
 1&
@@ -201,7 +209,10 @@ b10 $
 #295000
 1&
 #300000
+00
+02
 0&
+bz0 *
 0(
 #305000
 1&

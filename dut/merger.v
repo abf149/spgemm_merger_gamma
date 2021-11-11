@@ -11,7 +11,7 @@ module merger
               input wire reset,
               input wire [(MERGER_RADIX*MERGER_COORD_BITS-1):0] coord_in,
               output reg [(MERGER_COORD_BITS-1):0] coord,
-              input selected,
+              input wire selected,
               output reg [(MERGER_RADIX-1):0]  fetch_next
 );
 
@@ -36,24 +36,26 @@ module merger
 
     // Create the tree of binary mergers based on the localparams above
     generate
+        genvar node_idx;
         for (node_idx = 0; node_idx < BINARY_MERGER_COUNT; node_idx = node_idx + 1) begin
             binary_merger merger_tree_node (
                 .clock(clock),
                 .reset(reset),
-                .coord_in(coord_wires[((node_idx*2 + 2)*MERGER_COORD_BITS - 1):((node_idx*2 + 1)*MERGER_COORD_BITS)]),
+                .coord_in(coord_wires[((node_idx*2 + 3)*MERGER_COORD_BITS - 1):((node_idx*2 + 1)*MERGER_COORD_BITS)]),
                 .coord(coord_wires[((node_idx + 1)*MERGER_COORD_BITS - 1):(node_idx*MERGER_COORD_BITS)]),
                 .selected(fetch_wires[node_idx]),
-                .fetch_next(fetch_wires[(node_idx*2 + 2):(node_idx*2 + 1)])
+                .fetch_next(fetch_wires[(node_idx*2 + 2):(node_idx*2 + 1)]) // (node_idx*2 + 2):(node_idx*2 + 1)
             );
             
             defparam merger_tree_node.MERGER_COORD_BITS = MERGER_COORD_BITS;
+            
         end
     endgenerate
     
     // Hook the tree of coordinate nets up to the
     // top-level input wires
     assign coord_wires[(MERGER_COORD_BITS*FETCH_WIRE_COUNT - 1):(MERGER_COORD_BITS*LEAF_START_IDX)] = coord_in;
-    assign fetch_wires[0] = select;
+    assign fetch_wires[0] = selected;
 
     // Final layer of sequential logic -
     // hook the tree of coordinate nets & fetch/select wires
@@ -64,7 +66,7 @@ module merger
             fetch_next <= 0;
         end else if (clock) begin
             coord <= coord_wires[(MERGER_COORD_BITS - 1):0];
-            fetch_next <= fetch_wires[LEAF_END_IDX:LEAF_START_IDX];
+            fetch_next <= fetch_wires[LEAF_END_IDX:LEAF_START_IDX]; // LEAF_END_IDX:LEAF_START_IDX
         end
     end
 

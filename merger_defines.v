@@ -21,3 +21,4 @@
 */
 
 `define COORD_BITS 32
+`define RADIX 2

@@ -21,6 +21,7 @@ module binary_merger
     // Breakout separate coordinates from input net
     assign coord_0 = coord_in[(MERGER_COORD_BITS-1):0];
     assign coord_1 = coord_in[(2*MERGER_COORD_BITS-1):MERGER_COORD_BITS];
+    assign fetch_next = {fetch_next_from_1,fetch_next_from_0};
 
     // Merge
     assign comparison = (coord_0 < coord_1);
