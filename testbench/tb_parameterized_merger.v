@@ -11,10 +11,7 @@ module tb_parameterized_merger;
     // Track wire inputs and register outputs from merger
     reg clk;
     reg rst;
-    reg [(`COORD_BITS-1):0] c0;
-    reg [(`COORD_BITS-1):0] c1;
-    reg [(`COORD_BITS-1):0] c2;    
-    reg [(`COORD_BITS-1):0] c3;    
+    wire [(`RADIX*`COORD_BITS-1):0] c_in;
     wire [(`COORD_BITS-1):0] c;
     reg sel;
     wire f0;
@@ -26,12 +23,10 @@ module tb_parameterized_merger;
     merger dut (
         .clock(clk),
         .reset(rst),
-//        .coord_in({c3,c2,c1,c0}),
-        .coord_in({c1,c0}),
+        .coord_in(c_in),
         .coord(c),
         .selected(sel),
-//        .fetch_next({f3,f2,f1,f0})   
-        .fetch_next({f1,f0})      
+        .fetch_next({f3,f2,f1,f0})   
     );    
 
     defparam dut.MERGER_RADIX = `RADIX;

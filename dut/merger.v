@@ -44,7 +44,7 @@ module merger
                 .coord_in(coord_wires[((node_idx*2 + 3)*MERGER_COORD_BITS - 1):((node_idx*2 + 1)*MERGER_COORD_BITS)]),
                 .coord(coord_wires[((node_idx + 1)*MERGER_COORD_BITS - 1):(node_idx*MERGER_COORD_BITS)]),
                 .selected(fetch_wires[node_idx]),
-                .fetch_next(fetch_wires[(node_idx*2 + 2):(node_idx*2 + 1)]) // (node_idx*2 + 2):(node_idx*2 + 1)
+                .fetch_next(fetch_wires[(node_idx*2 + 2):(node_idx*2 + 1)]) 
             );
             
             defparam merger_tree_node.MERGER_COORD_BITS = MERGER_COORD_BITS;
@@ -66,7 +66,7 @@ module merger
             fetch_next <= 0;
         end else if (clock) begin
             coord <= coord_wires[(MERGER_COORD_BITS - 1):0];
-            fetch_next <= fetch_wires[LEAF_END_IDX:LEAF_START_IDX]; // LEAF_END_IDX:LEAF_START_IDX
+            fetch_next <= fetch_wires[LEAF_END_IDX:LEAF_START_IDX]; 
         end
     end
 
