@@ -4,7 +4,7 @@
 // Top-level merger component with registered output
 
 `define BTS 8
-`define RDX 128
+`define RDX 4
 
 module merger
               (input wire clock,
